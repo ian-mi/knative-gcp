@@ -28,6 +28,7 @@ type EventsV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	PubSubsGetter
 	SchedulersGetter
+	StackdriversGetter
 	StoragesGetter
 }
 
@@ -42,6 +43,10 @@ func (c *EventsV1alpha1Client) PubSubs(namespace string) PubSubInterface {
 
 func (c *EventsV1alpha1Client) Schedulers(namespace string) SchedulerInterface {
 	return newSchedulers(c, namespace)
+}
+
+func (c *EventsV1alpha1Client) Stackdrivers(namespace string) StackdriverInterface {
+	return newStackdrivers(c, namespace)
 }
 
 func (c *EventsV1alpha1Client) Storages(namespace string) StorageInterface {

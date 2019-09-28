@@ -34,6 +34,14 @@ type SchedulerListerExpansion interface{}
 // SchedulerNamespaceLister.
 type SchedulerNamespaceListerExpansion interface{}
 
+// StackdriverListerExpansion allows custom methods to be added to
+// StackdriverLister.
+type StackdriverListerExpansion interface{}
+
+// StackdriverNamespaceListerExpansion allows custom methods to be added to
+// StackdriverNamespaceLister.
+type StackdriverNamespaceListerExpansion interface{}
+
 // StorageListerExpansion allows custom methods to be added to
 // StorageLister.
 type StorageListerExpansion interface{}

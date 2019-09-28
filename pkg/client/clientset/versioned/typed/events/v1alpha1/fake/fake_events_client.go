@@ -36,6 +36,10 @@ func (c *FakeEventsV1alpha1) Schedulers(namespace string) v1alpha1.SchedulerInte
 	return &FakeSchedulers{c, namespace}
 }
 
+func (c *FakeEventsV1alpha1) Stackdrivers(namespace string) v1alpha1.StackdriverInterface {
+	return &FakeStackdrivers{c, namespace}
+}
+
 func (c *FakeEventsV1alpha1) Storages(namespace string) v1alpha1.StorageInterface {
 	return &FakeStorages{c, namespace}
 }

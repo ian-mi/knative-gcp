@@ -28,6 +28,8 @@ type Interface interface {
 	PubSubs() PubSubInformer
 	// Schedulers returns a SchedulerInformer.
 	Schedulers() SchedulerInformer
+	// Stackdrivers returns a StackdriverInformer.
+	Stackdrivers() StackdriverInformer
 	// Storages returns a StorageInformer.
 	Storages() StorageInformer
 }
@@ -51,6 +53,11 @@ func (v *version) PubSubs() PubSubInformer {
 // Schedulers returns a SchedulerInformer.
 func (v *version) Schedulers() SchedulerInformer {
 	return &schedulerInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// Stackdrivers returns a StackdriverInformer.
+func (v *version) Stackdrivers() StackdriverInformer {
+	return &stackdriverInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // Storages returns a StorageInformer.
