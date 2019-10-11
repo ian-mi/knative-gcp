@@ -20,6 +20,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"knative.dev/pkg/apis"
 
 	duckv1alpha1 "github.com/google/knative-gcp/pkg/apis/duck/v1alpha1"
 )
@@ -38,6 +39,16 @@ type Stackdriver struct {
 
 var (
 	_ runtime.Object = (*Stackdriver)(nil)
+)
+
+const (
+	SinkReady apis.ConditionType = "SinkReady"
+)
+
+var StackdriverCondSet = apis.NewLivingConditionSet(
+	duckv1alpha1.PullSubscriptionReady,
+	duckv1alpha1.TopicReady,
+	SinkReady,
 )
 
 type StackdriverSpec struct {
@@ -60,6 +71,23 @@ type StackdriverStatus struct {
 // GetGroupVersionKind ...
 func (stackdriver *Stackdriver) GetGroupVersionKind() schema.GroupVersionKind {
 	return SchemeGroupVersion.WithKind("Stackdriver")
+}
+
+///Methods for pubsubable interface
+
+// PubSubSpec returns the PubSubSpec portion of the Spec.
+func (s *Stackdriver) PubSubSpec() *duckv1alpha1.PubSubSpec {
+	return &s.Spec.PubSubSpec
+}
+
+// PubSubStatus returns the PubSubStatus portion of the Status.
+func (s *Stackdriver) PubSubStatus() *duckv1alpha1.PubSubStatus {
+	return &s.Status.PubSubStatus
+}
+
+// ConditionSet returns the apis.ConditionSet of the embedding object
+func (s *Stackdriver) ConditionSet() *apis.ConditionSet {
+	return &StackdriverCondSet
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
