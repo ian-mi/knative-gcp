@@ -51,6 +51,8 @@ spec:
           value: github.com/google/knative-gcp/cmd/operations/notification
         - name: SCHEDULER_JOB_IMAGE
           value: github.com/google/knative-gcp/cmd/operations/scheduler
+        - name: STACKDRIVER_SINK_IMAGE
+          value: github.com/google/knative-gcp/cmd/operations/sink
         - name: SYSTEM_NAMESPACE
           valueFrom:
             fieldRef:
