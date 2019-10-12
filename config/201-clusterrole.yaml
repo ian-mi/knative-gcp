@@ -64,6 +64,7 @@ rules:
 - apiGroups:
     - events.cloud.google.com
   resources:
+    - stackdrivers
     - storages
     - schedulers
     - pubsubs
@@ -72,6 +73,7 @@ rules:
 - apiGroups:
     - events.cloud.google.com
   resources:
+    - stackdrivers/status
     - storages/status
     - schedulers/status
     - pubsubs/status

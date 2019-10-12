@@ -25,6 +25,7 @@ import (
 	"github.com/google/knative-gcp/pkg/reconciler/pubsub"
 	"github.com/google/knative-gcp/pkg/reconciler/pullsubscription"
 	"github.com/google/knative-gcp/pkg/reconciler/scheduler"
+	"github.com/google/knative-gcp/pkg/reconciler/stackdriver"
 	"github.com/google/knative-gcp/pkg/reconciler/storage"
 	"github.com/google/knative-gcp/pkg/reconciler/topic"
 
@@ -33,6 +34,7 @@ import (
 
 func main() {
 	sharedmain.Main("controller",
+		stackdriver.NewController,
 		storage.NewController,
 		scheduler.NewController,
 		pubsub.NewController,
