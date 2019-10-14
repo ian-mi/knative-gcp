@@ -50,7 +50,8 @@ var converters map[string]converterFn
 
 func init() {
 	converters = map[string]converterFn{
-		"google.storage": convertStorage,
+		StackdriverAdapterType: convertStackdriver,
+		"google.storage":       convertStorage,
 	}
 }
 

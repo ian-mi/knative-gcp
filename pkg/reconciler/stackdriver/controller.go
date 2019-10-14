@@ -20,6 +20,7 @@ import (
 	"context"
 
 	"github.com/google/knative-gcp/pkg/apis/duck/v1alpha1"
+	"github.com/google/knative-gcp/pkg/pubsub/adapter/converters"
 	"github.com/google/knative-gcp/pkg/reconciler"
 	"github.com/google/knative-gcp/pkg/reconciler/job"
 	"github.com/kelseyhightower/envconfig"
@@ -66,7 +67,7 @@ func NewController(
 
 	c := &Reconciler{
 		SinkOpsImage:      env.SinkOpsImage,
-		PubSubBase:        reconciler.NewPubSubBase(ctx, controllerAgentName, "storage.events.cloud.google.com", cmw),
+		PubSubBase:        reconciler.NewPubSubBase(ctx, controllerAgentName, "stackdriver.events.cloud.google.com", converters.StackdriverAdapterType, cmw),
 		stackdriverLister: stackdriverInformer.Lister(),
 	}
 	c.jobReconciler = job.Reconciler{
