@@ -140,7 +140,7 @@ func (r *Reconciler) reconcilePullSubscription(ctx context.Context, source *v1al
 			r.Logger.Infof("Failed to get PullSubscriptions: %v", err)
 			return nil, fmt.Errorf("failed to get pullsubscriptions: %v", err)
 		}
-		newPS := resources.MakePullSubscription(source.Namespace, source.Name, &source.Spec.PubSubSpec, source, source.Spec.Topic, r.receiveAdapterName, resourceGroup)
+		newPS := resources.MakePullSubscription(source.Namespace, source.Name, &source.Spec.PubSubSpec, source, source.Spec.Topic, r.receiveAdapterName, "", resourceGroup)
 		r.Logger.Infof("Creating pullsubscription %+v", newPS)
 		ps, err = r.RunClientSet.PubsubV1alpha1().PullSubscriptions(newPS.Namespace).Create(newPS)
 		if err != nil {

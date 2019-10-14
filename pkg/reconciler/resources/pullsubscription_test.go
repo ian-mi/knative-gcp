@@ -64,7 +64,7 @@ func TestMakePullSubscription(t *testing.T) {
 		},
 	}
 
-	got := MakePullSubscription(source.Namespace, source.Name, &source.Spec.PubSubSpec, source, "topic-abc", "storage.events.cloud.google.com", "storages.events.cloud.google.com")
+	got := MakePullSubscription(source.Namespace, source.Name, &source.Spec.PubSubSpec, source, "topic-abc", "storage.events.cloud.google.com", "google.storage", "storages.events.cloud.google.com")
 
 	yes := true
 	want := &pubsubv1alpha1.PullSubscription{
@@ -102,6 +102,7 @@ func TestMakePullSubscription(t *testing.T) {
 					Name:       "sink",
 				},
 			},
+			AdapterType: "google.storage",
 			CloudEventOverrides: &pubsubv1alpha1.CloudEventOverrides{
 				Extensions: map[string]string{
 					"foo": "bar",

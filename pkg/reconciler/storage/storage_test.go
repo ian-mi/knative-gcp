@@ -731,7 +731,7 @@ func TestAllCases(t *testing.T) {
 	table.Test(t, MakeFactory(func(ctx context.Context, listers *Listers, cmw configmap.Watcher) controller.Reconciler {
 		reconciler := &Reconciler{
 			NotificationOpsImage: testImage,
-			PubSubBase:           reconciler.NewPubSubBase(ctx, controllerAgentName, "storage.events.cloud.google.com", cmw),
+			PubSubBase:           reconciler.NewPubSubBase(ctx, controllerAgentName, "storage.events.cloud.google.com", "", cmw),
 			storageLister:        listers.GetStorageLister(),
 		}
 		reconciler.jobReconciler = job.Reconciler{

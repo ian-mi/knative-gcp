@@ -114,6 +114,8 @@ func TestMakeMinimumReceiveAdapter(t *testing.T) {
 						}, {
 							Name: "TRANSFORMER_URI",
 						}, {
+							Name: "ADAPTER_TYPE",
+						}, {
 							Name:  "SEND_MODE",
 							Value: "binary",
 						}, {
@@ -171,8 +173,9 @@ func TestMakeFullReceiveAdapter(t *testing.T) {
 			},
 		},
 		Spec: v1alpha1.PullSubscriptionSpec{
-			Project: "eventing-name",
-			Topic:   "topic",
+			Project:     "eventing-name",
+			Topic:       "topic",
+			AdapterType: "adapter-type",
 			CloudEventOverrides: &v1alpha1.CloudEventOverrides{
 				Extensions: map[string]string{
 					"foo": "bar", // base64 value is eyJmb28iOiJiYXIifQ==
@@ -256,6 +259,9 @@ func TestMakeFullReceiveAdapter(t *testing.T) {
 						}, {
 							Name:  "TRANSFORMER_URI",
 							Value: "transformer-uri",
+						}, {
+							Name:  "ADAPTER_TYPE",
+							Value: "adapter-type",
 						}, {
 							Name:  "SEND_MODE",
 							Value: "binary",

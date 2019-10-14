@@ -24,10 +24,11 @@ import (
 	pubsubClient "github.com/google/knative-gcp/pkg/client/injection/client"
 )
 
-func NewPubSubBase(ctx context.Context, controllerAgentName, receiveAdapterName string, cmw configmap.Watcher) *PubSubBase {
+func NewPubSubBase(ctx context.Context, controllerAgentName, receiveAdapterName, adapterType string, cmw configmap.Watcher) *PubSubBase {
 	return &PubSubBase{
 		Base:               NewBase(ctx, controllerAgentName, cmw),
 		pubsubClient:       pubsubClient.Get(ctx),
 		receiveAdapterName: receiveAdapterName,
+		adapterType:        adapterType,
 	}
 }
