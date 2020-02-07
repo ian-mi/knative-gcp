@@ -22,6 +22,7 @@ import (
 
 	nethttp "net/http"
 
+	"cloud.google.com/go/pubsub"
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/plugin/ochttp/propagation/b3"
 	"go.opencensus.io/trace"
@@ -246,6 +247,11 @@ func (a *Adapter) newPubSubClient(ctx context.Context) (cloudevents.Client, erro
 		cepubsub.WithProjectID(a.Project),
 		cepubsub.WithTopicID(a.Topic),
 		cepubsub.WithSubscriptionAndTopicID(a.Subscription, a.Topic),
+		cepubsub.WithReceiveSettings(&pubsub.ReceiveSettings{
+			MaxOutstandingMessages: 1000,
+			NumGoroutines:          5,
+			Synchronous:            false,
+		}),
 	}
 
 	// Make a pubsub transport for the CloudEvents client.
