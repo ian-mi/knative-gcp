@@ -23,7 +23,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"strconv"
 	"time"
 
 	cloudevents "github.com/cloudevents/sdk-go"
@@ -58,12 +57,15 @@ func main() {
 	fmt.Printf("Source to match: %q.\n", r.Source)
 	fmt.Printf("Subject to match: %q.\n", r.Subject)
 
-	// Create a timer
-	duration, _ := strconv.Atoi(r.Time)
-	timer := time.NewTimer(time.Second * time.Duration(duration))
-	defer timer.Stop()
-	go func() {
-		<-timer.C
+	// Add timeout
+	ctx, cancel := context.WithTimeout(context.Background(), r.Time)
+	defer cancel()
+	if err := client.StartReceiver(ctx, r.Receive); err != nil {
+		select {
+		case <-ctx.Done():
+		default:
+			log.Fatal(err)
+		}
 		// Write the termination message if time out
 		fmt.Printf("time out to wait for event with type %q source %q subject %q service_name %q method_name %q resource_name %q .\n",
 			r.Type, r.Source, r.Subject, r.ServiceName, r.MethodName, r.ResourceName)
@@ -72,22 +74,17 @@ func main() {
 		}); err != nil {
 			fmt.Printf("failed to write termination message, %s.\n", err.Error())
 		}
-		os.Exit(0)
-	}()
-
-	if err := client.StartReceiver(context.Background(), r.Receive); err != nil {
-		log.Fatal(err)
 	}
 }
 
 type Receiver struct {
-	ServiceName  string `envconfig:"SERVICENAME" required:"true"`
-	MethodName   string `envconfig:"METHODNAME" required:"true"`
-	ResourceName string `envconfig:"RESOURCENAME" required:"true"`
-	Type         string `envconfig:"TYPE" required:"true"`
-	Source       string `envconfig:"SOURCE" required:"true"`
-	Subject      string `envconfig:"SUBJECT" required:"true"`
-	Time         string `envconfig:"TIME" required:"true"`
+	ServiceName  string        `envconfig:"SERVICENAME" required:"true"`
+	MethodName   string        `envconfig:"METHODNAME" required:"true"`
+	ResourceName string        `envconfig:"RESOURCENAME" required:"true"`
+	Type         string        `envconfig:"TYPE" required:"true"`
+	Source       string        `envconfig:"SOURCE" required:"true"`
+	Subject      string        `envconfig:"SUBJECT" required:"true"`
+	Time         time.Duration `envconfig:"TIME" required:"true"`
 }
 
 type propPair struct {
