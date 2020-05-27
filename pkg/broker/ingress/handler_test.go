@@ -23,6 +23,8 @@ import (
 	"fmt"
 	nethttp "net/http"
 	"net/http/httptest"
+	"os"
+	"runtime/pprof"
 	"testing"
 	"time"
 
@@ -366,7 +368,17 @@ func setupTestReceiver(ctx context.Context, t testing.TB, psSrv *pstest.Server) 
 		t.Fatal(err)
 	}
 
-	go p.OpenInbound(cecontext.WithLogger(ctx, logtest.TestLogger(t)))
+	pChan := make(chan error, 1)
+	ctx, cancel := context.WithCancel(ctx)
+	go func() {
+		pChan <- p.OpenInbound(cecontext.WithLogger(ctx, logtest.TestLogger(t)))
+	}()
+	t.Cleanup(func() {
+		cancel()
+		pprof.Lookup("goroutine").WriteTo(os.Stdout, 1)
+		<-pChan
+	})
+
 	return p
 }
 
