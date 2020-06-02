@@ -36,7 +36,7 @@ type envConfig struct {
 }
 
 const (
-	component = "broker"
+	component = "broker-ingress"
 )
 
 // main creates and starts an ingress handler using default options.
