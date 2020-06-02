@@ -19,7 +19,7 @@ import (
 // configmaps. Returns an updated context with logging and function to flush telemetry which should
 // be called before exit.
 // The input context should have KubeClient injected.
-func SetupDynamicConfigOrDie(ctx context.Context, componentName string) (context.Context, *configmap.InformedWatcher, *profiling.Handler, func()) {
+func SetupDynamicConfigOrDie(ctx context.Context, componentName string, serviceName string) (context.Context, *configmap.InformedWatcher, *profiling.Handler, func()) {
 	sharedmain.MemStatsOrDie(ctx)
 	// Set up our logger.
 	logger, atomicLevel := sharedmain.SetupLoggerOrDie(ctx, componentName)
@@ -31,7 +31,7 @@ func SetupDynamicConfigOrDie(ctx context.Context, componentName string) (context
 	ph := profiling.NewHandler(logger, false)
 	sharedmain.WatchObservabilityConfigOrDie(ctx, configMapWatcher, ph, logger, componentName)
 	// Watch the tracing config map
-	setupTracingOrDie(configMapWatcher, logger, componentName)
+	setupTracingOrDie(configMapWatcher, logger, serviceName)
 
 	configMapCtx, cancel := context.WithCancel(ctx)
 	// configMapWatcher does not block, so start it first.

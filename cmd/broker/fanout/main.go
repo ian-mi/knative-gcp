@@ -18,6 +18,8 @@ package main
 
 import (
 	"context"
+	"log"
+	"os"
 	"time"
 
 	"cloud.google.com/go/pubsub"
@@ -50,8 +52,17 @@ type envConfig struct {
 func main() {
 	appcredentials.MustExistOrUnsetEnv()
 
+	hostname, err := os.Hostname()
+	if err != nil {
+		log.Fatal(err)
+	}
 	var env envConfig
-	ctx, res := mainhelper.Init(component, mainhelper.WithEnv(&env))
+	ctx, res := mainhelper.Init(
+		component,
+		mainhelper.WithEnv(&env),
+		// There is no fanout service so use the pod's hostname
+		mainhelper.WithServiceName(hostname),
+	)
 	defer res.Cleanup()
 	logger := res.Logger
 
