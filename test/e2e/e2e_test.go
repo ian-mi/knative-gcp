@@ -327,6 +327,16 @@ func TestGCPBroker(t *testing.T) {
 	GCPBrokerTestImpl(t, authConfig, false /* assertMetrics */)
 }
 
+func TestGCPBrokerTracing(t *testing.T) {
+	defer logstream.Start(t)()
+	conformancehelpers.BrokerTracingTestHelperWithChannelTestRunner(
+		t, "googlecloud", channelTestRunner,
+		func(client *eventingtestlib.Client) {
+			lib.SetTracingToZipkin(client)
+		},
+	)
+}
+
 // TestCloudPubSubSourceWithGCPBroker tests we can knock a Knative Service from a GCPBroker from a CloudPubSubSource.
 func TestCloudPubSubSourceWithGCPBroker(t *testing.T) {
 	cancel := logstream.Start(t)
