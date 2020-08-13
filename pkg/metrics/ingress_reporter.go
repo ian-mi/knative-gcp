@@ -21,9 +21,11 @@ import (
 	"fmt"
 	"strconv"
 
+	"go.opencensus.io/metric/metricdata"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
+	"go.opencensus.io/trace"
 	"knative.dev/pkg/metrics"
 )
 
@@ -87,19 +89,22 @@ type IngressReporter struct {
 }
 
 func (r *IngressReporter) ReportEventCount(ctx context.Context, args IngressReportArgs) error {
-	tag, err := tag.New(
-		ctx,
-		tag.Insert(PodNameKey, string(r.podName)),
-		tag.Insert(ContainerNameKey, string(r.containerName)),
-		tag.Insert(NamespaceNameKey, args.Namespace),
-		tag.Insert(BrokerNameKey, args.Broker),
-		tag.Insert(EventTypeKey, EventTypeMetricValue(args.EventType)),
-		tag.Insert(ResponseCodeKey, strconv.Itoa(args.ResponseCode)),
-		tag.Insert(ResponseCodeClassKey, metrics.ResponseCodeClass(args.ResponseCode)),
-	)
-	if err != nil {
-		return fmt.Errorf("failed to create metrics tag: %v", err)
+	opts := []stats.Options{
+		stats.WithTags(
+			tag.Insert(PodNameKey, string(r.podName)),
+			tag.Insert(ContainerNameKey, string(r.containerName)),
+			tag.Insert(NamespaceNameKey, args.Namespace),
+			tag.Insert(BrokerNameKey, args.Broker),
+			tag.Insert(EventTypeKey, EventTypeMetricValue(args.EventType)),
+			tag.Insert(ResponseCodeKey, strconv.Itoa(args.ResponseCode)),
+			tag.Insert(ResponseCodeClassKey, metrics.ResponseCodeClass(args.ResponseCode)),
+		),
 	}
-	metrics.Record(tag, r.eventCountM.M(1))
+	if span := trace.FromContext(ctx); span.IsRecordingEvents() {
+		opts = append(opts, stats.WithAttachments(metricdata.Attachments{
+			metricdata.AttachmentKeySpanContext: span.SpanContext(),
+		}))
+	}
+	metrics.Record(ctx, r.eventCountM.M(1), opts...)
 	return nil
 }

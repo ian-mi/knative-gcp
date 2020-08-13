@@ -23,9 +23,11 @@ import (
 	"time"
 
 	"github.com/google/knative-gcp/pkg/broker/config"
+	"go.opencensus.io/metric/metricdata"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
+	"go.opencensus.io/trace"
 	"knative.dev/pkg/metrics"
 )
 
@@ -122,13 +124,19 @@ func NewDeliveryReporter(podName PodName, containerName ContainerName) (*Deliver
 
 // ReportEventDispatchTime captures dispatch times.
 func (r *DeliveryReporter) ReportEventDispatchTime(ctx context.Context, d time.Duration, responseCode int) {
-	// convert time.Duration in nanoseconds to milliseconds.
-	metrics.Record(ctx, r.dispatchTimeInMsecM.M(float64(d/time.Millisecond)),
+	opts := []stats.Options{
 		stats.WithTags(
 			tag.Insert(ResponseCodeKey, strconv.Itoa(responseCode)),
 			tag.Insert(ResponseCodeClassKey, metrics.ResponseCodeClass(responseCode)),
 		),
-	)
+	}
+	if span := trace.FromContext(ctx); span.IsRecordingEvents() {
+		opts = append(opts, stats.WithAttachments(metricdata.Attachments{
+			metricdata.AttachmentKeySpanContext: span.SpanContext(),
+		}))
+	}
+	// convert time.Duration in nanoseconds to milliseconds.
+	metrics.Record(ctx, r.dispatchTimeInMsecM.M(float64(d/time.Millisecond)), opts...)
 }
 
 // StartEventProcessing records the start of event processing for delivery within the given context.
@@ -149,8 +157,14 @@ func (r *DeliveryReporter) reportEventProcessingTime(ctx context.Context, end ti
 	if err != nil {
 		return err
 	}
+	var opts []stats.Options
+	if span := trace.FromContext(ctx); span.IsRecordingEvents() {
+		opts = append(opts, stats.WithAttachments(metricdata.Attachments{
+			metricdata.AttachmentKeySpanContext: span.SpanContext(),
+		}))
+	}
 	// convert time.Duration in nanoseconds to milliseconds.
-	metrics.Record(ctx, r.processingTimeInMsecM.M(float64(end.Sub(start)/time.Millisecond)))
+	metrics.Record(ctx, r.processingTimeInMsecM.M(float64(end.Sub(start)/time.Millisecond)), opts...)
 	return nil
 }
 
