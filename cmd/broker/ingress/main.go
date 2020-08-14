@@ -17,6 +17,9 @@ limitations under the License.
 package main
 
 import (
+	"context"
+	"errors"
+
 	metadataClient "github.com/google/knative-gcp/pkg/gclient/metadata"
 	"github.com/google/knative-gcp/pkg/metrics"
 	"github.com/google/knative-gcp/pkg/utils"
@@ -70,6 +73,10 @@ func main() {
 
 	logger.Desugar().Info("Starting ingress.", zap.Any("ingress", ingress))
 	if err := ingress.Start(ctx); err != nil {
-		logger.Desugar().Fatal("failed to start ingress: ", zap.Error(err))
+		if errors.Is(err, context.Canceled) {
+			logger.Desugar().Info("Stopped ingress.")
+		} else {
+			logger.Desugar().Error("Ingress stopped with error.", zap.Error(err))
+		}
 	}
 }
