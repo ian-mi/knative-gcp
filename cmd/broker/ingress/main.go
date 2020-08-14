@@ -19,6 +19,7 @@ package main
 import (
 	"context"
 	"errors"
+	"time"
 
 	metadataClient "github.com/google/knative-gcp/pkg/gclient/metadata"
 	"github.com/google/knative-gcp/pkg/metrics"
@@ -26,6 +27,7 @@ import (
 	"github.com/google/knative-gcp/pkg/utils/appcredentials"
 	"github.com/google/knative-gcp/pkg/utils/clients"
 	"github.com/google/knative-gcp/pkg/utils/mainhelper"
+	"knative.dev/eventing/pkg/kncloudevents"
 
 	"go.uber.org/zap"
 )
@@ -72,7 +74,7 @@ func main() {
 	}
 
 	logger.Desugar().Info("Starting ingress.", zap.Any("ingress", ingress))
-	if err := ingress.Start(ctx); err != nil {
+	if err := ingress.Start(kncloudevents.WithShutdownTimeout(ctx, 15*time.Second)); err != nil {
 		if errors.Is(err, context.Canceled) {
 			logger.Desugar().Info("Stopped ingress.")
 		} else {
