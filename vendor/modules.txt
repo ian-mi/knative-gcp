@@ -97,6 +97,10 @@ github.com/aws/aws-sdk-go/service/sts/stsiface
 github.com/beorn7/perks/quantile
 # github.com/blang/semver v3.5.1+incompatible => github.com/blang/semver v1.1.1-0.20190414102917-ba2c2ddd8906
 github.com/blang/semver
+# github.com/blendle/zapdriver v1.3.1
+github.com/blendle/zapdriver
+# github.com/bmizerany/perks v0.0.0-20141205001514-d9a9656a3a4b
+## explicit
 # github.com/census-instrumentation/opencensus-proto v0.2.1
 github.com/census-instrumentation/opencensus-proto/gen-go/agent/common/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/agent/metrics/v1
@@ -135,6 +139,8 @@ github.com/cloudevents/sdk-go/v2/test
 github.com/cloudevents/sdk-go/v2/types
 # github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
+# github.com/dgryski/go-gk v0.0.0-20200319235926-a69029f61654
+## explicit
 # github.com/emicklei/go-restful v2.9.5+incompatible
 github.com/emicklei/go-restful
 github.com/emicklei/go-restful/log
@@ -155,7 +161,7 @@ github.com/go-openapi/jsonreference
 github.com/go-openapi/spec
 # github.com/go-openapi/swag v0.19.7
 github.com/go-openapi/swag
-# github.com/gobuffalo/envy v1.7.1
+# github.com/gobuffalo/envy v1.6.5
 github.com/gobuffalo/envy
 # github.com/gogo/protobuf v1.3.1
 github.com/gogo/protobuf/proto
@@ -219,7 +225,7 @@ github.com/google/wire/internal/wire
 # github.com/googleapis/gax-go/v2 v2.0.5
 ## explicit
 github.com/googleapis/gax-go/v2
-# github.com/googleapis/gnostic v0.4.0
+# github.com/googleapis/gnostic v0.3.1
 github.com/googleapis/gnostic/OpenAPIv2
 github.com/googleapis/gnostic/compiler
 github.com/googleapis/gnostic/extensions
@@ -306,14 +312,12 @@ github.com/rickb777/plural
 github.com/robfig/cron/v3
 # github.com/rogpeppe/fastuuid v1.2.0
 github.com/rogpeppe/fastuuid
-# github.com/rogpeppe/go-internal v1.5.2
-github.com/rogpeppe/go-internal/modfile
-github.com/rogpeppe/go-internal/module
-github.com/rogpeppe/go-internal/semver
 # github.com/sirupsen/logrus v1.6.0
 github.com/sirupsen/logrus
 # github.com/spf13/pflag v1.0.5
 github.com/spf13/pflag
+# github.com/streadway/quantile v0.0.0-20150917103942-b0c588724d25
+## explicit
 # github.com/stretchr/testify v1.5.1
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
@@ -1171,7 +1175,7 @@ knative.dev/eventing/test/test_images/transformevents
 # knative.dev/networking v0.0.0-20200826161907-8bdce480830a
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
-# knative.dev/pkg v0.0.0-20200827231407-8d478d55c0e6
+# knative.dev/pkg v0.0.0-20200827231407-8d478d55c0e6 => github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33
 ## explicit
 knative.dev/pkg/apiextensions/storageversion
 knative.dev/pkg/apiextensions/storageversion/cmd/migrate
@@ -1322,8 +1326,7 @@ knative.dev/serving/pkg/client/listers/autoscaling/v1alpha1
 knative.dev/serving/pkg/client/listers/serving/v1
 knative.dev/serving/pkg/client/listers/serving/v1alpha1
 knative.dev/serving/pkg/client/listers/serving/v1beta1
-# knative.dev/test-infra v0.0.0-20200828152807-808074748557
-## explicit
+# knative.dev/test-infra v0.0.0-20200828211307-9d4372c9b1c7
 knative.dev/test-infra/scripts
 # sigs.k8s.io/yaml v1.2.0 => sigs.k8s.io/yaml v1.1.0
 ## explicit
@@ -1346,3 +1349,4 @@ sigs.k8s.io/yaml
 # gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.2
 # honnef.co/go/tools => honnef.co/go/tools v0.0.1-2019.2.3
 # sigs.k8s.io/yaml => sigs.k8s.io/yaml v1.1.0
+# knative.dev/pkg => github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33

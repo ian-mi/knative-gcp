@@ -7,8 +7,10 @@ require (
 	cloud.google.com/go/logging v1.0.1-0.20200331222814-69e77e66e597
 	cloud.google.com/go/pubsub v1.6.1
 	cloud.google.com/go/storage v1.10.0
+	github.com/bmizerany/perks v0.0.0-20141205001514-d9a9656a3a4b // indirect
 	github.com/cloudevents/sdk-go/protocol/pubsub/v2 v2.0.1-0.20200602143929-d07dc0510d45
 	github.com/cloudevents/sdk-go/v2 v2.2.0
+	github.com/dgryski/go-gk v0.0.0-20200319235926-a69029f61654 // indirect
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/golang/protobuf v1.4.2
 	github.com/google/go-cmp v0.5.1
@@ -17,6 +19,7 @@ require (
 	github.com/googleapis/gax-go/v2 v2.0.5
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/rickb777/date v1.13.0
+	github.com/streadway/quantile v0.0.0-20150917103942-b0c588724d25 // indirect
 	go.opencensus.io v0.22.5-0.20200714042313-af30f77c5f65
 	go.opentelemetry.io/otel v0.3.0 // indirect
 	go.uber.org/multierr v1.5.0
@@ -32,7 +35,6 @@ require (
 	knative.dev/eventing v0.17.1-0.20200828141207-daaf5619ec30
 	knative.dev/pkg v0.0.0-20200827231407-8d478d55c0e6
 	knative.dev/serving v0.17.1-0.20200828171108-6826f9a6f80b
-	knative.dev/test-infra v0.0.0-20200828152807-808074748557 // indirect
 	sigs.k8s.io/yaml v1.2.0
 )
 
@@ -68,3 +70,5 @@ replace gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.2
 replace honnef.co/go/tools => honnef.co/go/tools v0.0.1-2019.2.3
 
 replace sigs.k8s.io/yaml => sigs.k8s.io/yaml v1.1.0
+
+replace knative.dev/pkg => github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33
