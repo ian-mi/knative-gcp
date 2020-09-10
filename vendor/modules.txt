@@ -1175,7 +1175,7 @@ knative.dev/eventing/test/test_images/transformevents
 # knative.dev/networking v0.0.0-20200826161907-8bdce480830a
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
-# knative.dev/pkg v0.0.0-20200827231407-8d478d55c0e6 => github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33
+# knative.dev/pkg v0.0.0-20200827231407-8d478d55c0e6 => github.com/ian-mi/pkg v0.0.0-20200910225430-c1a9ec0fd7de
 ## explicit
 knative.dev/pkg/apiextensions/storageversion
 knative.dev/pkg/apiextensions/storageversion/cmd/migrate
@@ -1349,4 +1349,4 @@ sigs.k8s.io/yaml
 # gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.2
 # honnef.co/go/tools => honnef.co/go/tools v0.0.1-2019.2.3
 # sigs.k8s.io/yaml => sigs.k8s.io/yaml v1.1.0
-# knative.dev/pkg => github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33
+# knative.dev/pkg => github.com/ian-mi/pkg v0.0.0-20200910225430-c1a9ec0fd7de

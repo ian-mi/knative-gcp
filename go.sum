@@ -702,8 +702,8 @@ github.com/hashicorp/serf v0.8.2/go.mod h1:6hOLApaqBFA1NXqRQAsxw9QxuDEvNxSQRwA/J
 github.com/hpcloud/tail v1.0.0 h1:nfCOvKYfkgYP8hkirhJocXT2+zOD8yUNjXaWfTlyFKI=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
 github.com/huandu/xstrings v1.2.0/go.mod h1:DvyZB1rfVYsBIigL8HwpZgxHwXozlTgGqn63UyNX5k4=
-github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33 h1:vnFeUf6+2FIKmrkNh2AQBQjB0QUa9HAWesUkyMaD+AE=
-github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33/go.mod h1:faAV66EgQcZv5SmSrX8oTZJP5JwqJkDNJif1d0bhmJQ=
+github.com/ian-mi/pkg v0.0.0-20200910225430-c1a9ec0fd7de h1:MBnz0Itfcs1/Pnv6+WiE26SgrMugerUQNbIssNn2fGc=
+github.com/ian-mi/pkg v0.0.0-20200910225430-c1a9ec0fd7de/go.mod h1:faAV66EgQcZv5SmSrX8oTZJP5JwqJkDNJif1d0bhmJQ=
 github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/imdario/mergo v0.3.5/go.mod h1:2EnlNZ0deacrJVfApfmtdGgDfMuh/nq6Ok1EcJh5FfA=
 github.com/imdario/mergo v0.3.6/go.mod h1:2EnlNZ0deacrJVfApfmtdGgDfMuh/nq6Ok1EcJh5FfA=

@@ -71,4 +71,4 @@ replace honnef.co/go/tools => honnef.co/go/tools v0.0.1-2019.2.3
 
 replace sigs.k8s.io/yaml => sigs.k8s.io/yaml v1.1.0
 
-replace knative.dev/pkg => github.com/ian-mi/pkg v0.0.0-20200903173549-8f88cc013f33
+replace knative.dev/pkg => github.com/ian-mi/pkg v0.0.0-20200910225430-c1a9ec0fd7de
